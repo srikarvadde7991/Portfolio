@@ -3,503 +3,401 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Srikar Vadde — Security Analyst | Vulnerability Management</title>
+<title>Srikar Vadde — Security Operations &amp; Detection Engineering</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b0f14;
-    --panel:#121821;
-    --panel-2:#0f151d;
-    --line:#1f2a37;
-    --text:#e6edf3;
-    --muted:#9aa7b4;
-    --accent:#4fd1c5;      /* teal */
-    --accent-2:#63b3ed;
-    --accent-dim:#2c7a7b;
-    --warn:#f6ad55;
-    --mono:'JetBrains Mono',monospace;
-    --display:'Space Grotesk',sans-serif;
-    --body:'Inter',sans-serif;
+    --bg: #f6f8f9;
+    --panel: #ffffff;
+    --border: #e3e8eb;
+    --ink: #10201f;
+    --muted: #5b6b6e;
+    --teal: #0e7c86;
+    --teal-dark: #0a5b63;
+    --amber: #d97706;
+    --amber-soft: #fdf1e2;
+    --teal-soft: #e6f3f3;
+    --display: 'Sora', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);color:var(--text);font-family:var(--body);
-    line-height:1.6;-webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;text-decoration:none}
-  ::selection{background:var(--accent);color:#04120f}
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.65; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  img,svg{ display:block; }
+  ::selection{ background:var(--teal-soft); color:var(--teal-dark); }
 
-  /* nav */
-  header.nav{
-    position:sticky;top:0;z-index:50;
-    background:rgba(11,15,20,.85);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-inner{
-    max-width:1080px;margin:0 auto;padding:14px 24px;
-    display:flex;align-items:center;justify-content:space-between;gap:16px;
-  }
-  .brand{font-family:var(--display);font-weight:700;letter-spacing:.02em;font-size:1.05rem}
-  .brand span{color:var(--accent)}
-  .nav-links{display:flex;gap:20px;flex-wrap:wrap}
-  .nav-links a{font-size:.86rem;color:var(--muted);transition:color .2s}
-  .nav-links a:hover{color:var(--accent)}
-  .nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--text);
-    padding:6px 10px;border-radius:6px;font-family:var(--mono);cursor:pointer}
+  header.site{ position:sticky; top:0; z-index:50; background:rgba(246,248,249,0.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
+  .navbar{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; max-width:1080px; margin:0 auto; }
+  .brand{ font-family:var(--display); font-weight:800; font-size:17px; letter-spacing:-0.2px; }
+  .brand span{ color:var(--teal); }
+  nav.links{ display:flex; gap:30px; font-size:14px; font-weight:600; color:var(--muted); }
+  nav.links a:hover{ color:var(--teal); }
+  .navbar .cta{ font-size:13.5px; font-weight:700; background:var(--teal); color:#fff; padding:9px 18px; border-radius:6px; }
+  .navbar .cta:hover{ background:var(--teal-dark); }
+  @media (max-width:820px){ nav.links{ display:none; } }
 
-  /* layout */
-  section{max-width:1080px;margin:0 auto;padding:72px 24px;border-bottom:1px solid var(--line)}
-  .eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--accent);margin-bottom:14px}
-  h2{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
-  h3{font-family:var(--display);font-size:1.05rem;font-weight:600;margin-bottom:8px}
-  .lead{color:var(--muted);max-width:70ch;margin-bottom:36px}
+  .hero{ padding:88px 0 70px; }
+  .hero-grid{ display:grid; grid-template-columns:1.3fr 0.9fr; gap:56px; align-items:center; }
+  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } .hero-photo{ order:-1; margin:0 auto; } }
+  .kicker{ font-family:var(--mono); font-size:12.5px; color:var(--teal-dark); letter-spacing:1px; text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .pulse-dot{ width:8px; height:8px; border-radius:50%; background:var(--teal); position:relative; flex:none; }
+  .pulse-dot::after{ content:''; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid var(--teal); animation:pulse 2.2s ease-out infinite; }
+  @keyframes pulse{ 0%{ transform:scale(0.6); opacity:1; } 100%{ transform:scale(1.8); opacity:0; } }
+  h1.headline{ font-family:var(--display); font-size:44px; font-weight:800; line-height:1.14; letter-spacing:-0.8px; margin-bottom:22px; }
+  h1.headline .accent{ color:var(--teal); }
+  .lede{ color:var(--muted); font-size:16.5px; max-width:560px; margin-bottom:34px; }
+  .cred-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+  .cred-badge{ font-family:var(--mono); font-size:12px; font-weight:600; color:var(--teal-dark); background:var(--teal-soft); border:1px solid #cfe6e7; padding:6px 13px; border-radius:20px; }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-primary,.btn-secondary{ font-size:14px; font-weight:700; padding:13px 24px; border-radius:7px; display:inline-block; }
+  .btn-primary{ background:var(--teal); color:#fff; }
+  .btn-primary:hover{ background:var(--teal-dark); }
+  .btn-secondary{ border:1.5px solid var(--border); color:var(--ink); background:var(--panel); }
+  .btn-secondary:hover{ border-color:var(--teal); color:var(--teal-dark); }
 
-  /* hero */
-  .hero{
-    min-height:82vh;display:flex;flex-direction:column;justify-content:center;
-    max-width:1080px;margin:0 auto;padding:48px 24px 72px;border-bottom:1px solid var(--line);
-    position:relative;overflow:hidden;
-  }
-  .hero-grid{
-    position:absolute;inset:0;z-index:0;opacity:.5;
-    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-    background-size:44px 44px;
-    mask-image:radial-gradient(ellipse 70% 60% at 30% 40%,#000 30%,transparent 75%);
-  }
-  .hero-content{position:relative;z-index:1}
-  .hero .tag{font-family:var(--mono);font-size:.8rem;color:var(--accent);letter-spacing:.1em;margin-bottom:20px}
-  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,6vw,4rem);
-    line-height:1.04;letter-spacing:-.02em;margin-bottom:22px;max-width:16ch}
-  .hero h1 em{font-style:normal;color:var(--accent)}
-  .hero p.sub{color:var(--muted);font-size:1.08rem;max-width:60ch;margin-bottom:32px}
-  .hero .stats{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:36px}
-  .stat .n{font-family:var(--display);font-size:1.7rem;font-weight:700;color:var(--text)}
-  .stat .l{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
-  .btn{font-family:var(--display);font-weight:600;font-size:.92rem;padding:12px 22px;border-radius:8px;
-    border:1px solid var(--accent);color:var(--accent);transition:all .2s;cursor:pointer}
-  .btn:hover{background:var(--accent);color:#04120f}
-  .btn.solid{background:var(--accent);color:#04120f}
-  .btn.solid:hover{background:transparent;color:var(--accent)}
+  .hero-photo{ width:240px; height:240px; position:relative; justify-self:center; }
+  .radar-ring{ position:absolute; inset:0; border-radius:50%; border:1.5px dashed #bcd8da; }
+  .radar-ring.r2{ inset:18px; border-style:solid; border-color:var(--border); }
+  .avatar-core{ position:absolute; inset:34px; border-radius:50%; background:linear-gradient(160deg, var(--teal) 0%, var(--teal-dark) 100%); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 12px 30px -8px rgba(14,124,134,0.45); }
+  .avatar-core span{ font-family:var(--display); font-size:52px; font-weight:800; color:#fff; }
+  .sweep{ position:absolute; inset:0; border-radius:50%; overflow:hidden; }
+  .sweep::before{ content:''; position:absolute; inset:0; background:conic-gradient(from 0deg, rgba(14,124,134,0.35), transparent 30%); animation:spin 4s linear infinite; border-radius:50%; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .sweep::before, .pulse-dot::after{ animation:none; } }
 
-  /* cards */
-  .grid{display:grid;gap:18px}
-  .grid.two{grid-template-columns:repeat(2,1fr)}
-  .grid.three{grid-template-columns:repeat(3,1fr)}
-  .card{
-    background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;
-    transition:border-color .2s,transform .2s;
-  }
-  .card:hover{border-color:var(--accent-dim);transform:translateY(-2px)}
-  .card .ic{font-size:1.4rem;margin-bottom:12px;display:block}
-  .card p{color:var(--muted);font-size:.92rem}
-  .card ul{list-style:none;margin-top:10px}
-  .card ul li{color:var(--muted);font-size:.88rem;padding:5px 0 5px 18px;position:relative}
-  .card ul li::before{content:"▸";color:var(--accent);position:absolute;left:0}
+  .stat-strip{ display:flex; gap:0; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-top:44px; background:var(--panel); }
+  .stat-cell{ flex:1; padding:18px 20px; border-right:1px solid var(--border); }
+  .stat-cell:last-child{ border-right:none; }
+  .stat-cell .num{ font-family:var(--mono); font-weight:600; font-size:19px; color:var(--teal-dark); display:block; }
+  .stat-cell .label{ font-size:12px; color:var(--muted); margin-top:2px; }
+  @media (max-width:700px){ .stat-strip{ flex-wrap:wrap; } .stat-cell{ flex:1 1 50%; border-bottom:1px solid var(--border); } }
 
-  /* experience */
-  .xp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:28px}
-  .xp-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
-    border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:20px}
-  .xp-head .role{font-family:var(--display);font-weight:600;font-size:1.15rem}
-  .xp-head .co{color:var(--accent);font-family:var(--mono);font-size:.85rem;margin-top:4px}
-  .xp-head .when{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
-  .xp-block{margin-bottom:18px}
-  .xp-block .bt{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--warn);margin-bottom:8px}
-  .xp-block ul{list-style:none}
-  .xp-block ul li{color:var(--muted);font-size:.92rem;padding:4px 0 4px 20px;position:relative}
-  .xp-block ul li::before{content:"—";color:var(--accent-dim);position:absolute;left:0}
+  section{ padding:76px 0; }
+  section.alt{ background:var(--panel); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .eyebrow{ font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--teal-dark); margin-bottom:10px; }
+  h2.section-title{ font-family:var(--display); font-size:29px; font-weight:800; margin-bottom:16px; letter-spacing:-0.4px; }
+  .section-desc{ color:var(--muted); max-width:600px; margin-bottom:46px; font-size:15px; }
 
-  /* skill chips */
-  .chips{display:flex;flex-wrap:wrap;gap:9px}
-  .chip{font-family:var(--mono);font-size:.8rem;background:var(--panel-2);border:1px solid var(--line);
-    color:var(--muted);padding:7px 12px;border-radius:20px}
-  .skill-col h3{color:var(--text);margin-bottom:12px;font-size:.95rem}
-  .skill-col{margin-bottom:26px}
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+  @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-copy p{ margin-bottom:16px; color:var(--ink); font-size:15.5px; }
+  .about-copy strong{ color:var(--teal-dark); }
+  .fact-list{ display:flex; flex-direction:column; gap:16px; }
+  .fact{ display:flex; gap:14px; padding:16px 18px; background:var(--panel); border:1px solid var(--border); border-radius:9px; }
+  .fact .k{ font-family:var(--mono); font-size:11.5px; color:var(--teal-dark); min-width:88px; text-transform:uppercase; padding-top:2px; }
+  .fact .v{ font-size:14px; color:var(--ink); font-weight:600; }
+  .fact .v small{ display:block; font-weight:400; color:var(--muted); font-size:12.5px; margin-top:2px; }
 
-  /* code */
-  pre{background:#080c11;border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;
-    font-family:var(--mono);font-size:.8rem;color:#cbd5e1;margin-top:14px}
-  pre .c{color:#64748b}
-  pre .k{color:var(--accent)}
+  .timeline{ position:relative; padding-left:28px; border-left:2px solid var(--border); }
+  .tl-item{ position:relative; padding-bottom:44px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{ content:''; position:absolute; left:-34px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--teal); border:3px solid var(--bg); box-shadow:0 0 0 2px var(--teal); }
+  .tl-date{ font-family:var(--mono); font-size:12px; color:var(--teal-dark); margin-bottom:6px; }
+  .tl-role{ font-family:var(--display); font-size:18px; font-weight:700; margin-bottom:2px; }
+  .tl-role .badge{ font-family:var(--mono); font-size:10.5px; background:var(--amber-soft); color:var(--amber); padding:2px 9px; border-radius:20px; margin-left:10px; vertical-align:middle; }
+  .tl-org{ font-size:13.5px; color:var(--muted); margin-bottom:14px; }
+  .tl-list{ list-style:none; }
+  .tl-list li{ position:relative; padding-left:18px; margin-bottom:8px; font-size:14.5px; color:var(--ink); }
+  .tl-list li::before{ content:'—'; position:absolute; left:0; color:var(--teal); }
 
-  /* contact */
-  .contact-box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:36px;text-align:center}
-  .contact-box a.email{font-family:var(--display);font-size:1.25rem;color:var(--accent);font-weight:600}
-  .avail{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.8rem;
-    color:var(--muted);margin-top:16px}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .skill-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:14px; }
+  .skill-tile{ background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:18px 10px; text-align:center; transition:transform .15s ease, border-color .15s ease; }
+  .skill-tile:hover{ transform:translateY(-3px); border-color:var(--teal); }
+  .skill-tile .badge-ic{ width:38px; height:38px; margin:0 auto 10px; border-radius:8px; background:var(--teal-soft); color:var(--teal-dark); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:13px; }
+  .skill-tile .name{ font-size:12.5px; font-weight:600; color:var(--ink); }
 
-  footer{max-width:1080px;margin:0 auto;padding:28px 24px;color:var(--muted);
-    font-family:var(--mono);font-size:.78rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .proj-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  @media (max-width:800px){ .proj-grid{ grid-template-columns:1fr; } }
+  .proj-card{ background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:26px; display:flex; flex-direction:column; height:100%; }
+  .proj-card .tag{ font-family:var(--mono); font-size:10.5px; color:var(--teal-dark); background:var(--teal-soft); padding:3px 9px; border-radius:5px; display:inline-block; margin-bottom:14px; width:fit-content; }
+  .proj-card h3{ font-family:var(--display); font-size:16.5px; margin-bottom:10px; font-weight:700; }
+  .proj-card p{ font-size:14px; color:var(--muted); margin-bottom:16px; flex:1; }
+  .proj-card .tools{ font-family:var(--mono); font-size:11px; color:var(--muted); margin-bottom:14px; }
+  .proj-card .link{ font-size:13px; font-weight:700; color:var(--teal-dark); }
+  .proj-card .link:hover{ text-decoration:underline; }
+  .proj-featured{ grid-column:1/-1; background:linear-gradient(135deg, var(--teal-soft), var(--panel)); }
 
-  .note{font-family:var(--mono);font-size:.78rem;color:var(--muted);background:var(--panel-2);
-    border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:6px;padding:12px 14px;margin-top:18px}
+  .cert-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+  @media (max-width:800px){ .cert-grid{ grid-template-columns:1fr; } }
+  .cert-card{ display:flex; gap:16px; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:20px; }
+  .cert-ic{ width:42px; height:42px; border-radius:8px; background:var(--amber-soft); color:var(--amber); display:flex; align-items:center; justify-content:center; font-size:18px; flex:none; }
+  .cert-card h4{ font-size:14.5px; margin-bottom:4px; font-weight:700; }
+  .cert-card p{ font-size:12.5px; color:var(--muted); }
 
-  @media(max-width:820px){
-    .grid.two,.grid.three{grid-template-columns:1fr}
-    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--panel);
-      flex-direction:column;padding:16px 24px;border-bottom:1px solid var(--line)}
-    .nav-links.open{display:flex}
-    .nav-toggle{display:block}
-  }
-  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+  .contact-panel{ background:var(--ink); color:#eef4f4; border-radius:16px; padding:52px 44px; text-align:center; }
+  .contact-panel .eyebrow{ color:#8fd0d4; }
+  .contact-panel h2{ font-family:var(--display); font-size:27px; font-weight:800; margin-bottom:12px; color:#fff; }
+  .contact-panel p{ color:#a9bcbd; margin-bottom:28px; }
+  .contact-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .contact-row a{ font-size:13.5px; font-weight:700; padding:11px 20px; border-radius:7px; border:1px solid #2a4547; }
+  .contact-row a.primary{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .contact-row a.primary:hover{ background:#12939e; }
+  .contact-row a:not(.primary):hover{ border-color:#4a6f72; }
+
+  footer{ padding:30px 0; text-align:center; color:var(--muted); font-size:12.5px; }
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="nav-inner">
-    <div class="brand">SRIKAR<span>_</span>VADDE</div>
-    <button class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')">menu</button>
-    <nav class="nav-links" id="nl">
+<header class="site">
+  <div class="navbar">
+    <div class="brand">SRIKAR<span>.</span>VADDE</div>
+    <nav class="links">
+      <a href="#home">Home</a>
+      <a href="#info">My Info</a>
       <a href="#experience">Experience</a>
-      <a href="#vm">Vuln Mgmt</a>
-      <a href="#secops">SecOps</a>
-      <a href="#appsec">AppSec</a>
       <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
       <a href="#contact">Contact</a>
     </nav>
+    <a class="cta" href="#contact">Contact Me</a>
   </div>
 </header>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="tag">// vulnerability management · security operations</div>
-    <h1>Finding, prioritizing, and closing <em>enterprise vulnerabilities</em>.</h1>
-    <p class="sub">Security Analyst with 2+ years of hands-on vulnerability management in an MSSP environment — running the full lifecycle across Qualys and Tenable, prioritizing by real-world risk, and driving remediation to closure within SLA.</p>
-    <div class="stats">
-      <div class="stat"><div class="n">2+ yrs</div><div class="l">VM experience</div></div>
-      <div class="stat"><div class="n">Qualys / Tenable</div><div class="l">Core platforms</div></div>
-      <div class="stat"><div class="n">CEH</div><div class="l">Certified</div></div>
-      <div class="stat"><div class="n">40%</div><div class="l">False-positive cut</div></div>
-    </div>
-    <div class="cta-row">
-      <a href="#experience" class="btn solid">View experience</a>
-      <a href="#contact" class="btn">Get in touch</a>
-    </div>
-  </div>
-</div>
-
-<!-- OVERVIEW -->
-<section id="overview">
-  <div class="eyebrow">What I do</div>
-  <h2>Security focus areas</h2>
-  <p class="lead">Grounded in day-to-day vulnerability operations, with working experience across SIEM log integration, web application testing, and compliance support.</p>
-  <div class="grid three">
-    <div class="card">
-      <span class="ic">🎯</span>
-      <h3>Vulnerability Management</h3>
-      <p>End-to-end lifecycle in Qualys (VM, PC, PCI, QPC) and Tenable.SC/Nessus — scanning, validation, risk-based prioritization, and remediation tracking.</p>
-    </div>
-    <div class="card">
-      <span class="ic">📊</span>
-      <h3>Reporting &amp; Automation</h3>
-      <p>Python/PowerShell automation and Power BI / Tableau dashboards that turn raw scan data into SLA, aging, and risk views for stakeholders.</p>
-    </div>
-    <div class="card">
-      <span class="ic">🛡️</span>
-      <h3>SecOps &amp; AppSec</h3>
-      <p>Log integration into Splunk and Google SecOps, plus hands-on web application testing with Burp Suite against the OWASP Top 10.</p>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="eyebrow">Professional experience</div>
-  <h2>Where I've done the work</h2>
-  <div class="xp">
-    <div class="xp-head">
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero-grid">
       <div>
-        <div class="role">Security Analyst — Vulnerability Management</div>
-        <div class="co">NetEnrich Inc. · MSSP Environment</div>
+        <div class="kicker"><span class="pulse-dot"></span>Security Operations · Detection Engineering</div>
+        <h1 class="headline">Triaging signal, closing risk — <span class="accent">end to end.</span></h1>
+        <div class="cred-row">
+          <span class="cred-badge">🎓 CEH Certified</span>
+          <span class="cred-badge">🕵️ Red Team Certified</span>
+        </div>
+        <p class="lede">Security Operations-focused analyst with hands-on experience across SIEM administration, log correlation, and detection engineering — plus vulnerability management, compliance support, and manual penetration testing.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="#experience">See my experience</a>
+          <a class="btn-secondary" href="#contact">Get in touch</a>
+        </div>
+        <div class="stat-strip">
+          <div class="stat-cell"><span class="num">2+ yrs</span><span class="label">SecOps &amp; VM</span></div>
+          <div class="stat-cell"><span class="num">40%</span><span class="label">FP reduction</span></div>
+          <div class="stat-cell"><span class="num">60%</span><span class="label">Effort automated</span></div>
+        </div>
       </div>
-      <div class="when">Dec 2021 – Dec 2023</div>
-    </div>
-
-    <div class="xp-block">
-      <div class="bt">Vulnerability Management Operations</div>
-      <ul>
-        <li>Managed the end-to-end vulnerability lifecycle — identification, validation, prioritization, remediation tracking, and closure verification — across enterprise client environments.</li>
-        <li>Operated Qualys VM, Policy Compliance (PC), and PCI scans; built and deployed policies in QPC and tuned scan/asset coverage.</li>
-        <li>Configured and maintained Tenable.SC, Tenable.io, and Nessus across VMware, ESXi, and Hyper-V; configured cloud scanning connectors across AWS, Azure, and GCP.</li>
-        <li>Performed risk-based prioritization using CVSS and EPSS, correlating with threat intelligence (CISA KEV) to surface actively exploited vulnerabilities.</li>
-        <li>Conducted manual validation to reduce false positives by ~40% and ran revalidation scans to confirm remediation.</li>
-      </ul>
-    </div>
-
-    <div class="xp-block">
-      <div class="bt">SLA-Driven Remediation &amp; Reporting</div>
-      <ul>
-        <li>Tracked remediation against SLAs and coordinated with infrastructure and application teams to drive vulnerabilities to closure.</li>
-        <li>Correlated findings with asset inventory in ServiceNow (CMDB) to improve remediation accountability and reduce aging.</li>
-        <li>Built Power BI and Tableau dashboards tracking exploited vs. non-exploited assets, asset segmentation/tagging, vulnerability aging, and first-appearance vs. last-fixed.</li>
-        <li>Supported monthly security reviews, translating technical findings into business-risk insights for stakeholders.</li>
-      </ul>
-    </div>
-
-    <div class="xp-block">
-      <div class="bt">SIEM Integration &amp; Threat Response</div>
-      <ul>
-        <li>Integrated vulnerability and log telemetry into Splunk and Google SecOps (Chronicle), building dashboards and correlation logic for visibility.</li>
-        <li>Onboarded log sources using Google SecOps forwarders, IBM WinCollect, and NXLog; developed custom parsers and detection rules (YARA-L), authored SIEM onboarding SOPs, and escalated ingestion issues with Google SecOps support to resolution.</li>
-        <li>Responded to threat advisories and executed threat-response SOPs, performing follow-up validation and remediation tracking.</li>
-      </ul>
-    </div>
-
-    <div class="xp-block">
-      <div class="bt">Automation &amp; Web Application Testing</div>
-      <ul>
-        <li>Automated scan reporting, data ingestion, IP subnet uploading, and agent deployment with Python and PowerShell (REST APIs), streamlining asset onboarding and reducing manual effort by ~60%.</li>
-        <li>Performed web application scanning with Qualys WAS and Tenable, followed by manual penetration testing in Burp Suite to reproduce and validate findings against the OWASP Top 10.</li>
-        <li>Supported SOC 2 evidence collection and control documentation, coordinating between client teams and audit stakeholders.</li>
-      </ul>
+      <div class="hero-photo">
+        <div class="radar-ring"></div>
+        <div class="radar-ring r2"></div>
+        <div class="sweep"></div>
+        <div class="avatar-core"><span>SV</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- VM ARCHITECTURE -->
-<section id="vm">
-  <div class="eyebrow">How I think about it</div>
-  <h2>Vulnerability management approach</h2>
-  <p class="lead">A practical, layered flow — from discovery through remediation — built around risk-based prioritization rather than raw scan counts.</p>
-  <div class="grid two">
-    <div class="card">
-      <h3>1 · Discovery &amp; Scanning</h3>
-      <ul>
-        <li>Qualys VMDR &amp; Tenable.SC / Nessus</li>
-        <li>Authenticated scanning across Windows &amp; Linux</li>
-        <li>Web app scanning (Qualys WAS, Tenable)</li>
-        <li>Asset &amp; IP subnet coverage management</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>2 · Analysis &amp; Prioritization</h3>
-      <ul>
-        <li>CVSS scoring + EPSS exploit probability</li>
-        <li>CISA KEV correlation for active exploitation</li>
-        <li>Asset criticality &amp; business context</li>
-        <li>False-positive validation</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>3 · Remediation &amp; Tracking</h3>
-      <ul>
-        <li>SLA-based remediation workflows</li>
-        <li>ServiceNow (CMDB) ticketing &amp; ownership</li>
-        <li>Revalidation scans to confirm closure</li>
-        <li>Aging &amp; backlog reduction</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>4 · Reporting &amp; Dashboards</h3>
-      <ul>
-        <li>Power BI / Tableau operational dashboards</li>
-        <li>MTTR, aging, and SLA KPIs</li>
-        <li>Exploitable vs. non-exploitable views</li>
-        <li>Executive &amp; stakeholder summaries</li>
-      </ul>
+<section class="alt" id="info">
+  <div class="wrap">
+    <div class="eyebrow">my info</div>
+    <h2 class="section-title">About me</h2>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>My path into security started with <strong>vulnerability management</strong> at an MSSP — running Qualys and Tenable across enterprise environments, learning to separate real risk from noise, and driving findings to closure within SLA.</p>
+        <p>That work pulled me deeper into <strong>SIEM administration and detection engineering</strong>: onboarding log sources, writing correlation rules in Splunk and Google SecOps, and building the pipelines that turn raw telemetry into signal an analyst can actually act on.</p>
+        <p>I now split my time between <strong>freelance compliance and penetration testing</strong> work and self-directed builds — including a GenAI-driven engine that emulates attacks and mines multi-SIEM detection rules from the resulting telemetry.</p>
+        <p>Alongside an <strong>M.S. in Computer Science (GPA 3.73)</strong>, I hold the CEH, Google SecOps, Tenable, Linux Administration, and Red Teaming certifications, and I'm currently looking for full-time <strong>Security Operations / SOC Analyst</strong> roles.</p>
+      </div>
+      <div class="fact-list">
+        <div class="fact"><div class="k">Based in</div><div class="v">Cleveland, Ohio, US</div></div>
+        <div class="fact"><div class="k">Focus</div><div class="v">Security Operations &amp; Detection Engineering<small>SIEM, log correlation, alert triage</small></div></div>
+        <div class="fact"><div class="k">Also</div><div class="v">Vulnerability Management &amp; AppSec<small>Qualys, Tenable, Burp Suite, OWASP Top 10</small></div></div>
+        <div class="fact"><div class="k">Practice</div><div class="v">Active CTF Player<small>TryHackMe, HackTheBox, VulnHub — ongoing</small></div></div>
+        <div class="fact"><div class="k">Education</div><div class="v">M.S. Computer Science<small>Cleveland State University · GPA 3.73</small></div></div>
+        <div class="fact"><div class="k">Email</div><div class="v">srikar7991@gmail.com</div></div>
+        <div class="fact"><div class="k">Phone</div><div class="v">(937) 609-1323</div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SECOPS -->
-<section id="secops">
-  <div class="eyebrow">Security operations</div>
-  <h2>SIEM &amp; log integration</h2>
-  <p class="lead">Hands-on with log onboarding, parsing, and detection in Splunk and Google SecOps (Chronicle), plus supporting SOC 2 audit evidence.</p>
-  <div class="grid two">
-    <div class="card">
-      <span class="ic">🔗</span>
-      <h3>Log Integration &amp; Parsing</h3>
-      <ul>
-        <li>Onboarding on-prem, network &amp; cloud log sources</li>
-        <li>Forwarders: Google SecOps, IBM WinCollect, NXLog</li>
-        <li>Custom parser development &amp; field normalization</li>
-        <li>Syslog / CEF / JSON log handling</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="ic">🎯</span>
-      <h3>Detection &amp; Response Support</h3>
-      <ul>
-        <li>YARA-L detection rules &amp; tuning</li>
-        <li>Correlating vulnerability &amp; log telemetry</li>
-        <li>Threat-advisory response &amp; SOP execution</li>
-        <li>Follow-up validation &amp; remediation tracking</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="ic">📋</span>
-      <h3>SOC 2 Compliance Support</h3>
-      <ul>
-        <li>Evidence collection &amp; control documentation</li>
-        <li>Access-review and configuration evidence</li>
-        <li>Coordination with client teams &amp; auditors</li>
-        <li>Vulnerability-management control mapping</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="ic">🐍</span>
-      <h3>Automation</h3>
-      <ul>
-        <li>Python (pandas, requests) for data pipelines</li>
-        <li>PowerShell for scan &amp; agent automation</li>
-        <li>REST API integrations (Tenable, Qualys)</li>
-        <li>Scheduled reporting &amp; ingestion workflows</li>
-      </ul>
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow">experience</div>
+    <h2 class="section-title">Where I've done the work</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-date">Feb 2026 – Present</div>
+        <div class="tl-role">Freelance Security Consultant<span class="badge">Current</span></div>
+        <div class="tl-org">Community Dream Foundation (CDF) · Compliance &amp; Penetration Testing</div>
+        <ul class="tl-list">
+          <li>Support the compliance team on control assessments, policy/documentation review, and audit readiness activities.</li>
+          <li>Perform penetration testing across web applications and network infrastructure using Burp Suite, aligned with OWASP Top 10.</li>
+          <li>Document findings with clear risk ratings and remediation guidance for technical and non-technical stakeholders.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Dec 2021 – Dec 2023</div>
+        <div class="tl-role">Security Analyst</div>
+        <div class="tl-org">NetEnrich Inc. · MSSP Environment</div>
+        <ul class="tl-list">
+          <li>Administered SIEM platforms end-to-end — user/role access management, index and data retention configuration, platform upgrades and health monitoring, and dashboard/alert administration.</li>
+          <li>Wrote and tuned correlation rules and detection logic in Google SecOps (Chronicle), including KQL and BigQuery detection rules based on the latest observed threats.</li>
+          <li>Performed adversary simulation in an internal lab to trigger newly created detection rules, validating rule efficiency before production deployment.</li>
+          <li>Performed retro-hunt analysis across large volumes of historical log data following migration from multiple SIEM platforms into Chronicle's data lake.</li>
+          <li>Onboarded log sources and built custom parsers across WinCollect, NXLog, and syslog for accurate SIEM correlation; collaborated directly with Google's support team to resolve forwarder issues.</li>
+          <li>Managed the end-to-end vulnerability lifecycle in Qualys/Tenable.IO, correlating findings with CISA KEV and MITRE ATT&CK, and automating reporting to cut manual effort by 60%.</li>
+          <li>Performed manual web application testing with Burp Suite against the OWASP Top 10, delivering detailed risk reports.</li>
+        </ul>
+      </div>
+
     </div>
   </div>
-  <pre><span class="c"># Example: classify findings by exploitability for prioritized reporting</span>
-<span class="k">import</span> pandas as pd
-
-df = pd.read_csv(<span class="k">"scan_export.csv"</span>)
-df[<span class="k">"exploitable"</span>] = (df[<span class="k">"cvss"</span>] >= 7.0) & df[<span class="k">"in_kev"</span>]
-priority = df[df[<span class="k">"exploitable"</span>]].sort_values(<span class="k">"cvss"</span>, ascending=<span class="k">False</span>)
-priority.to_excel(<span class="k">"priority_remediation.xlsx"</span>, index=<span class="k">False</span>)</pre>
 </section>
 
-<!-- APPSEC -->
-<section id="appsec">
-  <div class="eyebrow">Application security</div>
-  <h2>Web application testing</h2>
-  <p class="lead">Automated scanning paired with manual validation in Burp Suite — confirming findings and documenting clear, remediation-focused reports.</p>
-  <div class="grid three">
-    <div class="card"><h3>Automated Scanning</h3><p>Qualys WAS and Tenable web app scanning with authentication and endpoint discovery.</p></div>
-    <div class="card"><h3>Manual Validation</h3><p>Burp Suite Repeater/Intruder to confirm findings and eliminate false positives before reporting.</p></div>
-    <div class="card"><h3>OWASP Top 10</h3><p>Testing for injection, XSS, access-control, and authentication flaws with documented impact.</p></div>
+<section class="alt" id="skills">
+  <div class="wrap">
+    <div class="eyebrow">skills</div>
+    <h2 class="section-title">Tools &amp; technologies</h2>
+    <p class="section-desc">Split across SIEM/detection engineering, vulnerability management, and the automation that connects them.</p>
+    <div class="skill-grid">
+      <div class="skill-tile"><div class="badge-ic">SP</div><div class="name">Splunk</div></div>
+      <div class="skill-tile"><div class="badge-ic">GS</div><div class="name">Google SecOps</div></div>
+      <div class="skill-tile"><div class="badge-ic">KQ</div><div class="name">KQL / BigQuery</div></div>
+      <div class="skill-tile"><div class="badge-ic">RH</div><div class="name">Retro-hunt</div></div>
+      <div class="skill-tile"><div class="badge-ic">QR</div><div class="name">IBM QRadar</div></div>
+      <div class="skill-tile"><div class="badge-ic">YL</div><div class="name">YARA-L</div></div>
+      <div class="skill-tile"><div class="badge-ic">TN</div><div class="name">Tenable.IO</div></div>
+      <div class="skill-tile"><div class="badge-ic">NS</div><div class="name">Nessus</div></div>
+      <div class="skill-tile"><div class="badge-ic">QL</div><div class="name">Qualys VMDR</div></div>
+      <div class="skill-tile"><div class="badge-ic">BS</div><div class="name">Burp Suite</div></div>
+      <div class="skill-tile"><div class="badge-ic">MA</div><div class="name">MITRE ATT&amp;CK</div></div>
+      <div class="skill-tile"><div class="badge-ic">OW</div><div class="name">OWASP Top 10</div></div>
+      <div class="skill-tile"><div class="badge-ic">PY</div><div class="name">Python</div></div>
+      <div class="skill-tile"><div class="badge-ic">PS</div><div class="name">PowerShell</div></div>
+      <div class="skill-tile"><div class="badge-ic">BA</div><div class="name">Bash</div></div>
+      <div class="skill-tile"><div class="badge-ic">JS</div><div class="name">JavaScript</div></div>
+      <div class="skill-tile"><div class="badge-ic">DK</div><div class="name">Docker</div></div>
+      <div class="skill-tile"><div class="badge-ic">OL</div><div class="name">Ollama / LLMs</div></div>
+      <div class="skill-tile"><div class="badge-ic">KX</div><div class="name">Kali Linux</div></div>
+      <div class="skill-tile"><div class="badge-ic">VM</div><div class="name">VMware / ESXi</div></div>
+      <div class="skill-tile"><div class="badge-ic">AZ</div><div class="name">Azure</div></div>
+      <div class="skill-tile"><div class="badge-ic">AW</div><div class="name">AWS</div></div>
+      <div class="skill-tile"><div class="badge-ic">GC</div><div class="name">GCP</div></div>
+      <div class="skill-tile"><div class="badge-ic">PB</div><div class="name">Power BI</div></div>
+      <div class="skill-tile"><div class="badge-ic">SN</div><div class="name">ServiceNow</div></div>
+    </div>
   </div>
-  <div class="note">Focused on the vulnerability classes I test and report on in practice — no inflated exploit counts. Detailed write-ups available on request during interviews.</div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
-  <div class="eyebrow">Hands-on projects &amp; labs</div>
-  <h2>Self-directed work</h2>
-  <div class="grid three">
-    <div class="card">
-      <span class="ic">📊</span>
-      <h3>Automated VM Reporting Framework</h3>
-      <p>Python pipeline aggregating Nessus/Qualys exports into centralized reports and dashboards tracking severity, SLA compliance, and remediation — cutting manual reporting effort by ~60%.</p>
-    </div>
-    <div class="card">
-      <span class="ic">🔬</span>
-      <h3>Malware Analysis Lab (FLARE VM / REMnux)</h3>
-      <p>Static and dynamic analysis with PE Studio, Procmon, Wireshark, and INetSim; identified IOCs and mapped behavior to MITRE ATT&amp;CK.</p>
-    </div>
-    <div class="card">
-      <span class="ic">🔒</span>
-      <h3>Web App Security Testing Lab</h3>
-      <p>Simulated SQLi, XSS, and authentication-bypass scenarios; manual testing in Burp Suite with documented exploitation steps and remediation.</p>
+  <div class="wrap">
+    <div class="eyebrow">recent works</div>
+    <h2 class="section-title">Self-directed projects</h2>
+    <p class="section-desc">Independent builds spanning detection engineering, GenAI-assisted tooling, malware analysis, and infrastructure.</p>
+    <div class="proj-grid">
+
+      <div class="proj-card proj-featured">
+        <div class="tag">GenAI · Detection Engineering</div>
+        <h3>GenAI Detection Engine — Autonomous SIEM Rule Miner</h3>
+        <p>Authorized-lab toolchain that emulates real attacks in isolated Docker environments, isolates threat footprints with a log-delta engine, maps them to MITRE ATT&amp;CK, and auto-generates multi-SIEM detection rules (Sigma, YARA-L 2.0, Splunk SPL, Sentinel KQL) — validated locally and confirmed with closed-loop Atomic testing.</p>
+        <div class="tools">Docker · Sigma · YARA-L 2.0 · Splunk SPL · Sentinel KQL · pySigma</div>
+        <a class="link" href="https://github.com/srikar7991/genai-detection-engine" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+      <div class="proj-card">
+        <div class="tag">GenAI · Remediation</div>
+        <h3>GenAI Patch Engine</h3>
+        <p>FastAPI service that turns CVE context into reviewable shell remediation scripts using a locally hosted LLM, with a safety-inspection layer that flags destructive patterns before human review.</p>
+        <div class="tools">FastAPI · Ollama · CodeLlama</div>
+        <a class="link" href="https://github.com/srikar7991/genai-patch-engine" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+      <div class="proj-card">
+        <div class="tag">Automation</div>
+        <h3>Automated VM Reporting Framework</h3>
+        <p>Python pipeline aggregating Nessus/Qualys exports into centralized dashboards tracking severity, SLA compliance, and remediation — cutting manual effort by ~60%.</p>
+        <div class="tools">Python · Power BI</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="tag">Malware Analysis</div>
+        <h3>Threat Hunting Lab (FLARE VM)</h3>
+        <p>Static/dynamic malware analysis lab using PE Studio, Procmon, Wireshark, and INetSim; mapped observed behaviors to MITRE ATT&amp;CK.</p>
+        <div class="tools">FLARE VM · REMnux</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="tag">AppSec</div>
+        <h3>Web Application Security Testing Lab</h3>
+        <p>Simulated SQLi, XSS, and auth-bypass scenarios; manual testing in Burp Suite aligned with OWASP Top 10, with documented remediation guidance.</p>
+        <div class="tools">Burp Suite · OWASP Top 10</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="tag">Infrastructure</div>
+        <h3>Personal Cloud Infrastructure (Raspberry Pi)</h3>
+        <p>End-to-end self-hosted setup covering compute, storage, networking, and security configuration from bare metal to running services — containerized, hardened, with remote access for off-network use.</p>
+        <div class="tools">Docker · Linux</div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="eyebrow">Technical skills</div>
-  <h2>Tools &amp; technologies</h2>
-  <div class="skill-col">
-    <h3>Vulnerability Management</h3>
-    <div class="chips">
-      <span class="chip">Qualys VMDR</span><span class="chip">Qualys PC / PCI</span><span class="chip">QPC</span>
-      <span class="chip">Tenable.SC</span><span class="chip">Tenable.io</span><span class="chip">Nessus</span><span class="chip">Rapid7</span>
-      <span class="chip">CyberCNS</span><span class="chip">OpsRamp</span>
-    </div>
-  </div>
-  <div class="skill-col">
-    <h3>Risk &amp; Prioritization</h3>
-    <div class="chips">
-      <span class="chip">CVSS</span><span class="chip">EPSS</span><span class="chip">CISA KEV</span>
-      <span class="chip">MITRE ATT&CK</span><span class="chip">OWASP Top 10</span><span class="chip">CVE / CWE</span>
-    </div>
-  </div>
-  <div class="skill-col">
-    <h3>Automation &amp; Reporting</h3>
-    <div class="chips">
-      <span class="chip">Python</span><span class="chip">PowerShell</span><span class="chip">REST APIs</span>
-      <span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Excel</span><span class="chip">ServiceNow</span>
-    </div>
-  </div>
-  <div class="skill-col">
-    <h3>SIEM &amp; Monitoring</h3>
-    <div class="chips">
-      <span class="chip">Splunk</span><span class="chip">Google SecOps (Chronicle)</span><span class="chip">IBM QRadar</span>
-      <span class="chip">YARA-L</span><span class="chip">WinCollect</span><span class="chip">NXLog</span>
-    </div>
-  </div>
-  <div class="skill-col">
-    <h3>Systems, Cloud &amp; Analysis</h3>
-    <div class="chips">
-      <span class="chip">Windows</span><span class="chip">Linux</span><span class="chip">VMware / ESXi</span><span class="chip">Hyper-V</span>
-      <span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">GCP</span><span class="chip">Scalr</span><span class="chip">Cloud scanning connectors</span><span class="chip">Burp Suite</span><span class="chip">Wireshark</span>
-      <span class="chip">PE Studio</span><span class="chip">REMnux</span>
-    </div>
-  </div>
-  <div class="skill-col">
-    <h3>Frameworks &amp; Standards</h3>
-    <div class="chips">
-      <span class="chip">NIST CSF</span><span class="chip">ISO 27001</span><span class="chip">SOC 2 (support)</span>
-      <span class="chip">PCI-DSS scanning</span><span class="chip">Configuration baselines</span>
+<section class="alt" id="certifications">
+  <div class="wrap">
+    <div class="eyebrow">certifications</div>
+    <h2 class="section-title">Credentials</h2>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-ic">🎓</div>
+        <div><h4>Certified Ethical Hacker (CEH)</h4><p>Penetration testing methodology, exploitation, and reporting.</p></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ic">🐧</div>
+        <div><h4>Linux Administration Certification</h4><p>Systems administration, hardening, and shell-level operations.</p></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ic">🛰️</div>
+        <div><h4>Google Security Operations (SecOps) Certification</h4><p>Chronicle SIEM administration, detection, and log pipeline management.</p></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ic">🧭</div>
+        <div><h4>Tenable Certification</h4><p>Vulnerability scanning, policy configuration, and scan lifecycle management.</p></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ic">📈</div>
+        <div><h4>Splunk 7.x Fundamentals Part 1</h4><p>Core Splunk search, field extraction, and dashboard/report fundamentals.</p></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ic">🕵️</div>
+        <div><h4>Red Teaming Certification</h4><p>ThriveDX (HackerU) — adversarial simulation and offensive security fundamentals.</p></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ic">🎓</div>
+        <div><h4>M.S., Computer Science</h4><p>Cleveland State University — GPA 3.73. Cybersecurity, network security, cryptography.</p></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-ic">🚩</div>
+        <div><h4>Active CTF Player <span style="font-family:var(--mono); font-size:10px; color:var(--teal-dark); background:var(--teal-soft); padding:2px 8px; border-radius:20px; margin-left:6px;">Ongoing</span></h4><p>TryHackMe, HackTheBox, VulnHub — hands-on offensive security practice and skill-building.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- EDUCATION -->
-<section id="education">
-  <div class="eyebrow">Education &amp; certifications</div>
-  <h2>Background</h2>
-  <div class="grid two">
-    <div class="card">
-      <h3>Education</h3>
-      <ul>
-        <li>M.S., Computer Science — Cleveland State University (GPA 3.73)</li>
-        <li>Coursework: Cybersecurity, Network Security, Cryptography, Systems Administration</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Certifications</h3>
-      <ul>
-        <li>Certified Ethical Hacker (CEH)</li>
-        <li>Tenable Certification</li>
-        <li>Google Chronicle Security Operations</li>
-        <li>Red Teaming Certification — HackerU (now ThriveDX)</li>
-      </ul>
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <div class="eyebrow">contact me</div>
+      <h2>Open to Security Operations &amp; SOC Analyst roles</h2>
+      <p>Actively seeking full-time security operations, detection engineering, and vulnerability management roles.</p>
+      <div class="contact-row">
+        <a class="primary" href="mailto:srikar7991@gmail.com">srikar7991@gmail.com</a>
+        <a href="tel:+19376091323">(937) 609-1323</a>
+        <a href="https://linkedin.com/in/srikarvadde" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/srikar7991" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" style="border-bottom:none">
-  <div class="eyebrow">Get in touch</div>
-  <h2>Open to security roles</h2>
-  <p class="lead">Actively seeking vulnerability management and security analyst roles. Relocating to the Dallas, TX area — open to onsite and hybrid.</p>
-  <div class="contact-box">
-    <a class="email" href="mailto:srikar7991@gmail.com">srikar7991@gmail.com</a>
-    <div style="margin-top:14px">
-      <a href="https://linkedin.com/in/srikarvadde" class="btn" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-    <div class="avail"><span class="dot"></span> Available · Relocating to Dallas, TX</div>
-  </div>
-</section>
+<footer>© 2026 Srikar Vadde — Security Operations &amp; Detection Engineering</footer>
 
-<footer>
-  <span>© 2026 Srikar Vadde</span>
-  <span>Security Analyst · Vulnerability Management</span>
-</footer>
-
-<script>
-  // close mobile menu on link click
-  document.querySelectorAll('#nl a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nl').classList.remove('open')));
-</script>
 </body>
 </html>
